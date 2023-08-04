@@ -1,26 +1,19 @@
 import React, { useState } from 'react'
-
 function App() {
   const [name, setName] = useState('')
   const [result, setResult] = useState(null)
   const [isLoading, setIsLoading] = useState(false)
-
   const token =
     'i9zuuggija2lo1yw2wyrv5rc7xidlklty7umpbdltme9gaacpssjvw2ocbfn8wsc'
-
   const handleSubmit = async event => {
     event.preventDefault()
     setResult(null)
     setIsLoading(true)
-
-    // Виконуємо запит до API
     try {
       const response = await fetch(
         `https://react.test-area.pp.ua/wp-json/custom/v1/data?token=${token}`
       )
       const data = await response.json()
-
-      // Перевіряємо значення поля name
       const foundItem = data.find(item => item.name === name)
 
       if (foundItem) {
@@ -32,10 +25,8 @@ function App() {
       console.error('Error connect to API:', error)
       setResult('Error connect to API.')
     }
-
     setIsLoading(false)
   }
-
   return (
     <div>
       <form onSubmit={handleSubmit}>
